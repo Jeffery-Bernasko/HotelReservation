@@ -1,5 +1,6 @@
 package com.example.reservation.serviceImpl;
 
+import com.example.reservation.dto.GuestDto;
 import com.example.reservation.model.Guest;
 import com.example.reservation.repository.GuestRepository;
 import com.example.reservation.service.GuestService;
@@ -18,5 +19,19 @@ public class GuestServiceImpl implements GuestService {
 
     public Guest findById(Long id) {
         return guestRepository.findById(id).get();
+    }
+
+    public Guest save(GuestDto guest) {
+        Guest guest1 = new Guest();
+
+        guest1.setFirstName(guest.getFirstName());
+        guest1.setLastName(guest.getLastName());
+        guest1.setEmail(guest.getEmail());
+        guest1.setCity(guest.getCity());
+        guest1.setCountry(guest.getCountry());
+        guest1.setPhoneNumber(guest.getPhoneNumber());
+        guest1.setAddress(guest.getAddress());
+
+        return guestRepository.save(guest1);
     }
 }

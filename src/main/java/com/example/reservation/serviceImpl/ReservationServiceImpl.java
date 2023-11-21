@@ -1,5 +1,6 @@
 package com.example.reservation.serviceImpl;
 
+import com.example.reservation.dto.ReservationDto;
 import com.example.reservation.model.Guest;
 import com.example.reservation.model.Reservation;
 import com.example.reservation.model.Room;
@@ -21,38 +22,23 @@ public class ReservationServiceImpl implements ReservationService {
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
 
-    public List<RoomReservation> getRoomReservationsForDate(Date date){
-        // Iterate through Room model and find all rooms
-        Iterable<Room> rooms = roomRepository.findAll();
 
-        Map<Long, RoomReservation> roomReservationMap = new HashMap<>();
-
-        rooms.forEach(room -> {
-            RoomReservation roomReservation = new RoomReservation();
-            roomReservation.setRoomId(room.getId());
-            roomReservation.setRoomName(room.getName());
-            roomReservation.setRoomNumber(room.getNumber());
-            roomReservationMap.put(room.getId(), roomReservation);
-        });
-        Iterable<Reservation> reservations = reservationRepository.findReservationByDate(new java.sql.Date(date.getTime()).toLocalDate());
-        if(null != reservations){
-            reservations.forEach(reservation -> {
-                Guest guest = guestRepository.findById(reservation.getId()).get();
-                RoomReservation roomReservation = roomReservationMap.get(reservation.getId());
-                roomReservation.setDate(date);
-                roomReservation.setFirstName(guest.getFirstName());
-                roomReservation.setLastName(guest.getLastName());
-                roomReservation.setGuestId(guest.getId());
-            });
-        }
-        List<RoomReservation> roomReservations = new ArrayList<>();
-        for(Long roomId: roomReservationMap.keySet()){
-            roomReservations.add(roomReservationMap.get(roomId));
-        }
-        return roomReservations;
-    }
 
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
+    }
+
+    public Reservation save(ReservationDto reservation) {
+        Reservation reservation1 = new Reservation();
+
+        reservation1.setRoomId(reservation.getRoomId());
+        reservation1.setGuestId(reservation.getGuestId());
+        reservation1.setDate(reservation.getDate());
+
+        return reservationRepository.save(reservation1);
+    }
+
+    public Reservation getById(Long id) {
+        return reservationRepository.findById(id).get();
     }
 }
