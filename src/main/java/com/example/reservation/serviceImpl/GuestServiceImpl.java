@@ -34,4 +34,14 @@ public class GuestServiceImpl implements GuestService {
 
         return guestRepository.save(guest1);
     }
+
+    public void deleteGuest(Long id) {
+        boolean checkGuest = guestRepository.existsById(id);
+
+        if(checkGuest){
+            guestRepository.deleteById(id);
+        }else {
+            throw new IllegalStateException("Guest does not exist");
+        }
+    }
 }

@@ -12,4 +12,6 @@ public interface RoomService {
 
     //Saving Room Data
     Room save(RoomDto roomDto);
+
+    void deleteRoomById(Long id);
 }

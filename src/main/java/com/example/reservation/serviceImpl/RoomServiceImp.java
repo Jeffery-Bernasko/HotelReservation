@@ -14,14 +14,20 @@ import java.util.List;
 public class RoomServiceImp implements RoomService {
     private final RoomRepository roomRepository;
 
+    // Method to get all rooms
     public List<Room> findAll(){
         return roomRepository.findAll();
     }
 
+    // Method to get room by using the id
     public Room findById(Long roomId) {
         return roomRepository.findById(roomId).get() ;
     }
 
+
+
+
+    // Method to save a room entity
     public Room save(RoomDto roomDto) {
         Room room = new Room();
 
@@ -30,6 +36,20 @@ public class RoomServiceImp implements RoomService {
         room.setNumber(roomDto.getNumber());
         room.setBedInfo(roomDto.getBedInfo());
 
+
         return roomRepository.save(room);
     }
+
+    public void deleteRoomById(Long id) {
+        //Check if room exist
+        boolean roomExist = roomRepository.existsById(id);
+
+        if(roomExist){
+            roomRepository.deleteById(id);
+        }else {
+            throw new IllegalStateException("Room does not exist");
+        }
+    }
+
+
 }

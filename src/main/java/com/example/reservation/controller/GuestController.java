@@ -30,4 +30,8 @@ public class GuestController {
         return guestService.save(guest);
     }
 
+    public void deleteGuest(@PathVariable Long id){
+        guestService.deleteGuest(id);
+    }
+
 }

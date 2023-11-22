@@ -29,4 +29,10 @@ public class RoomController {
     public Room postAndSaveRoom(@RequestBody RoomDto room){
         return roomService.save(room);
     }
+
+    // A DELETE request to delete a room by id
+    @DeleteMapping("/{id}")
+    public void deleteRoom(@PathVariable Long id){
+         roomService.deleteRoomById(id);
+    }
 }

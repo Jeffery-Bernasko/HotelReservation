@@ -20,7 +20,7 @@ public class ReservationController {
         return reservationService.findAll();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public Reservation getReservationById(@PathVariable Long id){
         return reservationService.getById(id);
     }
@@ -28,5 +28,11 @@ public class ReservationController {
     @PostMapping()
     public Reservation postAndSaveReservation(@RequestBody ReservationDto reservation){
         return reservationService.save(reservation);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public void deleteReservation(@PathVariable Long id){
+        reservationService.deleteReservation(id);
     }
 }

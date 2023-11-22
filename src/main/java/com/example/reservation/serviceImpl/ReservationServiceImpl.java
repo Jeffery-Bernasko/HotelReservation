@@ -41,4 +41,15 @@ public class ReservationServiceImpl implements ReservationService {
     public Reservation getById(Long id) {
         return reservationRepository.findById(id).get();
     }
+
+    public void deleteReservation(Long id) {
+        // check if room reservation exist then delete
+        boolean checkReservation = reservationRepository.existsById(id);
+
+        if(checkReservation){
+            reservationRepository.deleteById(id);
+        } else {
+            throw new IllegalStateException("Reservation does not exist");
+        }
+    }
 }

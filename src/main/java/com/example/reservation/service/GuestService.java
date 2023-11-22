@@ -14,4 +14,6 @@ public interface GuestService {
     Guest findById(Long id);
 
     Guest save(GuestDto guest);
+
+    void deleteGuest(Long id);
 }
