@@ -30,6 +30,7 @@ public class GuestController {
         return guestService.save(guest);
     }
 
+    @DeleteMapping("/{id}")
     public void deleteGuest(@PathVariable Long id){
         guestService.deleteGuest(id);
     }
